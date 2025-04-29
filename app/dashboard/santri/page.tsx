@@ -1,17 +1,31 @@
-"use client"
+// "// "use client""
 
-import { useState } from "react"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { BookOpen, Calendar, FileText, Home, LogOut, MessageSquare, User } from "lucide-react"
-import { Progress } from "@/components/ui/progress"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Badge } from "@/components/ui/badge"
+import { useState } from "react";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  BookOpen,
+  Calendar,
+  FileText,
+  Home,
+  LogOut,
+  MessageSquare,
+  User,
+} from "lucide-react";
+import { Progress } from "@/components/ui/progress";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 
 export default function SantriDashboard() {
-  const [activeTab, setActiveTab] = useState("overview")
+  const [activeTab, setActiveTab] = useState("overview");
 
   // Mock data for santri dashboard
   const santriData = {
@@ -19,13 +33,43 @@ export default function SantriDashboard() {
     class: "Kelas 2 Aliyah",
     avatarUrl: "/placeholder.svg?height=100&width=100",
     courses: [
-      { id: 1, title: "Fiqih", progress: 75, teacher: "Ustadz Abdullah", lastAccessed: "2 hari yang lalu" },
-      { id: 2, title: "Tafsir Al-Quran", progress: 60, teacher: "Ustadz Mahmud", lastAccessed: "1 minggu yang lalu" },
-      { id: 3, title: "Hadits", progress: 40, teacher: "Ustadz Hasan", lastAccessed: "3 hari yang lalu" },
-      { id: 4, title: "Bahasa Arab", progress: 85, teacher: "Ustadz Yusuf", lastAccessed: "Kemarin" },
+      {
+        id: 1,
+        title: "Fiqih",
+        progress: 75,
+        teacher: "Ustadz Abdullah",
+        lastAccessed: "2 hari yang lalu",
+      },
+      {
+        id: 2,
+        title: "Tafsir Al-Quran",
+        progress: 60,
+        teacher: "Ustadz Mahmud",
+        lastAccessed: "1 minggu yang lalu",
+      },
+      {
+        id: 3,
+        title: "Hadits",
+        progress: 40,
+        teacher: "Ustadz Hasan",
+        lastAccessed: "3 hari yang lalu",
+      },
+      {
+        id: 4,
+        title: "Bahasa Arab",
+        progress: 85,
+        teacher: "Ustadz Yusuf",
+        lastAccessed: "Kemarin",
+      },
     ],
     assignments: [
-      { id: 1, title: "Rangkuman Bab 3 Fiqih", course: "Fiqih", dueDate: "25 April 2025", status: "pending" },
+      {
+        id: 1,
+        title: "Rangkuman Bab 3 Fiqih",
+        course: "Fiqih",
+        dueDate: "25 April 2025",
+        status: "pending",
+      },
       {
         id: 2,
         title: "Hafalan Surat Al-Baqarah",
@@ -33,7 +77,13 @@ export default function SantriDashboard() {
         dueDate: "30 April 2025",
         status: "pending",
       },
-      { id: 3, title: "Tugas Bahasa Arab", course: "Bahasa Arab", dueDate: "20 April 2025", status: "completed" },
+      {
+        id: 3,
+        title: "Tugas Bahasa Arab",
+        course: "Bahasa Arab",
+        dueDate: "20 April 2025",
+        status: "completed",
+      },
     ],
     announcements: [
       {
@@ -46,10 +96,11 @@ export default function SantriDashboard() {
         id: 2,
         title: "Libur Hari Raya",
         date: "10 April 2025",
-        content: "Pesantren akan libur selama Hari Raya Idul Fitri mulai tanggal 1-7 Mei 2025.",
+        content:
+          "Pesantren akan libur selama Hari Raya Idul Fitri mulai tanggal 1-7 Mei 2025.",
       },
     ],
-  }
+  };
 
   return (
     <div className="min-h-screen flex flex-col bg-green-50">
@@ -61,13 +112,22 @@ export default function SantriDashboard() {
             <h1 className="text-xl font-bold">E-Learning Hubbul Khoir</h1>
           </Link>
           <div className="flex items-center gap-4">
-            <span className="hidden md:inline-block">Selamat datang, {santriData.name}</span>
+            <span className="hidden md:inline-block">
+              Selamat datang, {santriData.name}
+            </span>
             <Avatar>
-              <AvatarImage src={santriData.avatarUrl || "/placeholder.svg"} alt={santriData.name} />
+              <AvatarImage
+                src={santriData.avatarUrl || "/placeholder.svg"}
+                alt={santriData.name}
+              />
               <AvatarFallback>{santriData.name.charAt(0)}</AvatarFallback>
             </Avatar>
             <Link href="/login">
-              <Button variant="ghost" size="icon" className="text-white hover:bg-green-700">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="text-white hover:bg-green-700"
+              >
                 <LogOut className="h-5 w-5" />
                 <span className="sr-only">Logout</span>
               </Button>
@@ -82,7 +142,11 @@ export default function SantriDashboard() {
           <nav className="p-4 space-y-2">
             <Button
               variant={activeTab === "overview" ? "default" : "ghost"}
-              className={`w-full justify-start ${activeTab === "overview" ? "bg-green-700 hover:bg-green-800" : ""}`}
+              className={`w-full justify-start ${
+                activeTab === "overview"
+                  ? "bg-green-700 hover:bg-green-800"
+                  : ""
+              }`}
               onClick={() => setActiveTab("overview")}
             >
               <Home className="h-5 w-5 mr-2" />
@@ -90,7 +154,9 @@ export default function SantriDashboard() {
             </Button>
             <Button
               variant={activeTab === "courses" ? "default" : "ghost"}
-              className={`w-full justify-start ${activeTab === "courses" ? "bg-green-700 hover:bg-green-800" : ""}`}
+              className={`w-full justify-start ${
+                activeTab === "courses" ? "bg-green-700 hover:bg-green-800" : ""
+              }`}
               onClick={() => setActiveTab("courses")}
             >
               <BookOpen className="h-5 w-5 mr-2" />
@@ -98,7 +164,11 @@ export default function SantriDashboard() {
             </Button>
             <Button
               variant={activeTab === "assignments" ? "default" : "ghost"}
-              className={`w-full justify-start ${activeTab === "assignments" ? "bg-green-700 hover:bg-green-800" : ""}`}
+              className={`w-full justify-start ${
+                activeTab === "assignments"
+                  ? "bg-green-700 hover:bg-green-800"
+                  : ""
+              }`}
               onClick={() => setActiveTab("assignments")}
             >
               <FileText className="h-5 w-5 mr-2" />
@@ -106,7 +176,11 @@ export default function SantriDashboard() {
             </Button>
             <Button
               variant={activeTab === "schedule" ? "default" : "ghost"}
-              className={`w-full justify-start ${activeTab === "schedule" ? "bg-green-700 hover:bg-green-800" : ""}`}
+              className={`w-full justify-start ${
+                activeTab === "schedule"
+                  ? "bg-green-700 hover:bg-green-800"
+                  : ""
+              }`}
               onClick={() => setActiveTab("schedule")}
             >
               <Calendar className="h-5 w-5 mr-2" />
@@ -114,7 +188,9 @@ export default function SantriDashboard() {
             </Button>
             <Button
               variant={activeTab === "profile" ? "default" : "ghost"}
-              className={`w-full justify-start ${activeTab === "profile" ? "bg-green-700 hover:bg-green-800" : ""}`}
+              className={`w-full justify-start ${
+                activeTab === "profile" ? "bg-green-700 hover:bg-green-800" : ""
+              }`}
               onClick={() => setActiveTab("profile")}
             >
               <User className="h-5 w-5 mr-2" />
@@ -125,7 +201,11 @@ export default function SantriDashboard() {
 
         {/* Main Content */}
         <main className="flex-1 p-4 md:p-6 overflow-auto">
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
+          <Tabs
+            value={activeTab}
+            onValueChange={setActiveTab}
+            className="space-y-4"
+          >
             <TabsList className="hidden">
               <TabsTrigger value="overview">Beranda</TabsTrigger>
               <TabsTrigger value="courses">Pelajaran</TabsTrigger>
@@ -143,7 +223,10 @@ export default function SantriDashboard() {
                     <CardDescription>{santriData.class}</CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <p>Lanjutkan pembelajaran Anda dan selesaikan tugas-tugas yang tersedia.</p>
+                    <p>
+                      Lanjutkan pembelajaran Anda dan selesaikan tugas-tugas
+                      yang tersedia.
+                    </p>
                   </CardContent>
                 </Card>
                 <Card className="flex-1">
@@ -152,9 +235,14 @@ export default function SantriDashboard() {
                   </CardHeader>
                   <CardContent className="space-y-4">
                     {santriData.announcements.map((announcement) => (
-                      <div key={announcement.id} className="border-b pb-3 last:border-0 last:pb-0">
+                      <div
+                        key={announcement.id}
+                        className="border-b pb-3 last:border-0 last:pb-0"
+                      >
                         <h4 className="font-medium">{announcement.title}</h4>
-                        <p className="text-sm text-gray-500">{announcement.date}</p>
+                        <p className="text-sm text-gray-500">
+                          {announcement.date}
+                        </p>
                         <p className="mt-1 text-sm">{announcement.content}</p>
                       </div>
                     ))}
@@ -177,7 +265,9 @@ export default function SantriDashboard() {
                           <span>{course.progress}%</span>
                         </div>
                         <Progress value={course.progress} className="h-2" />
-                        <p className="text-sm text-gray-500">Terakhir diakses: {course.lastAccessed}</p>
+                        <p className="text-sm text-gray-500">
+                          Terakhir diakses: {course.lastAccessed}
+                        </p>
                       </div>
                     </CardContent>
                   </Card>
@@ -192,18 +282,28 @@ export default function SantriDashboard() {
                     <Card key={assignment.id}>
                       <CardHeader className="pb-2">
                         <div className="flex justify-between items-start">
-                          <CardTitle className="text-lg">{assignment.title}</CardTitle>
+                          <CardTitle className="text-lg">
+                            {assignment.title}
+                          </CardTitle>
                           <Badge
-                            variant={assignment.status === "completed" ? "outline" : "default"}
+                            variant={
+                              assignment.status === "completed"
+                                ? "outline"
+                                : "default"
+                            }
                             className="bg-green-700"
                           >
-                            {assignment.status === "completed" ? "Selesai" : "Belum Selesai"}
+                            {assignment.status === "completed"
+                              ? "Selesai"
+                              : "Belum Selesai"}
                           </Badge>
                         </div>
                         <CardDescription>{assignment.course}</CardDescription>
                       </CardHeader>
                       <CardContent>
-                        <p className="text-sm">Tenggat waktu: {assignment.dueDate}</p>
+                        <p className="text-sm">
+                          Tenggat waktu: {assignment.dueDate}
+                        </p>
                       </CardContent>
                     </Card>
                   ))}
@@ -233,7 +333,9 @@ export default function SantriDashboard() {
                       </div>
                     </CardContent>
                     <div className="p-4 pt-0">
-                      <Button className="w-full bg-green-700 hover:bg-green-800">Lanjutkan Belajar</Button>
+                      <Button className="w-full bg-green-700 hover:bg-green-800">
+                        Lanjutkan Belajar
+                      </Button>
                     </div>
                   </Card>
                 ))}
@@ -257,14 +359,20 @@ export default function SantriDashboard() {
                           <CardHeader>
                             <div className="flex justify-between items-center">
                               <CardTitle>{assignment.title}</CardTitle>
-                              <Badge className="bg-green-700">Belum Selesai</Badge>
+                              <Badge className="bg-green-700">
+                                Belum Selesai
+                              </Badge>
                             </div>
-                            <CardDescription>{assignment.course}</CardDescription>
+                            <CardDescription>
+                              {assignment.course}
+                            </CardDescription>
                           </CardHeader>
                           <CardContent>
                             <p>Tenggat waktu: {assignment.dueDate}</p>
                             <div className="mt-4 flex gap-2">
-                              <Button className="bg-green-700 hover:bg-green-800">Kerjakan Tugas</Button>
+                              <Button className="bg-green-700 hover:bg-green-800">
+                                Kerjakan Tugas
+                              </Button>
                               <Button variant="outline">Lihat Detail</Button>
                             </div>
                           </CardContent>
@@ -283,7 +391,9 @@ export default function SantriDashboard() {
                               <CardTitle>{assignment.title}</CardTitle>
                               <Badge variant="outline">Selesai</Badge>
                             </div>
-                            <CardDescription>{assignment.course}</CardDescription>
+                            <CardDescription>
+                              {assignment.course}
+                            </CardDescription>
                           </CardHeader>
                           <CardContent>
                             <p>Tenggat waktu: {assignment.dueDate}</p>
@@ -304,44 +414,54 @@ export default function SantriDashboard() {
               <Card>
                 <CardHeader>
                   <CardTitle>Jadwal Mingguan</CardTitle>
-                  <CardDescription>Jadwal pelajaran untuk minggu ini</CardDescription>
+                  <CardDescription>
+                    Jadwal pelajaran untuk minggu ini
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    {["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"].map((day) => (
-                      <div key={day} className="border-b pb-4 last:border-0">
-                        <h3 className="font-medium text-lg mb-2">{day}</h3>
-                        <div className="space-y-2">
-                          <div className="bg-green-50 p-3 rounded-md">
-                            <div className="flex justify-between">
-                              <div>
-                                <p className="font-medium">Fiqih</p>
-                                <p className="text-sm text-gray-500">Ustadz Abdullah</p>
+                    {["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"].map(
+                      (day) => (
+                        <div key={day} className="border-b pb-4 last:border-0">
+                          <h3 className="font-medium text-lg mb-2">{day}</h3>
+                          <div className="space-y-2">
+                            <div className="bg-green-50 p-3 rounded-md">
+                              <div className="flex justify-between">
+                                <div>
+                                  <p className="font-medium">Fiqih</p>
+                                  <p className="text-sm text-gray-500">
+                                    Ustadz Abdullah
+                                  </p>
+                                </div>
+                                <p className="text-sm">07:30 - 09:00</p>
                               </div>
-                              <p className="text-sm">07:30 - 09:00</p>
                             </div>
-                          </div>
-                          <div className="bg-green-50 p-3 rounded-md">
-                            <div className="flex justify-between">
-                              <div>
-                                <p className="font-medium">Tafsir Al-Quran</p>
-                                <p className="text-sm text-gray-500">Ustadz Mahmud</p>
+                            <div className="bg-green-50 p-3 rounded-md">
+                              <div className="flex justify-between">
+                                <div>
+                                  <p className="font-medium">Tafsir Al-Quran</p>
+                                  <p className="text-sm text-gray-500">
+                                    Ustadz Mahmud
+                                  </p>
+                                </div>
+                                <p className="text-sm">09:30 - 11:00</p>
                               </div>
-                              <p className="text-sm">09:30 - 11:00</p>
                             </div>
-                          </div>
-                          <div className="bg-green-50 p-3 rounded-md">
-                            <div className="flex justify-between">
-                              <div>
-                                <p className="font-medium">Bahasa Arab</p>
-                                <p className="text-sm text-gray-500">Ustadz Yusuf</p>
+                            <div className="bg-green-50 p-3 rounded-md">
+                              <div className="flex justify-between">
+                                <div>
+                                  <p className="font-medium">Bahasa Arab</p>
+                                  <p className="text-sm text-gray-500">
+                                    Ustadz Yusuf
+                                  </p>
+                                </div>
+                                <p className="text-sm">13:00 - 14:30</p>
                               </div>
-                              <p className="text-sm">13:00 - 14:30</p>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    ))}
+                      )
+                    )}
                   </div>
                 </CardContent>
               </Card>
@@ -355,8 +475,13 @@ export default function SantriDashboard() {
                   <CardHeader>
                     <div className="flex flex-col items-center">
                       <Avatar className="h-24 w-24 mb-4">
-                        <AvatarImage src={santriData.avatarUrl || "/placeholder.svg"} alt={santriData.name} />
-                        <AvatarFallback className="text-2xl">{santriData.name.charAt(0)}</AvatarFallback>
+                        <AvatarImage
+                          src={santriData.avatarUrl || "/placeholder.svg"}
+                          alt={santriData.name}
+                        />
+                        <AvatarFallback className="text-2xl">
+                          {santriData.name.charAt(0)}
+                        </AvatarFallback>
                       </Avatar>
                       <CardTitle>{santriData.name}</CardTitle>
                       <CardDescription>{santriData.class}</CardDescription>
@@ -380,7 +505,9 @@ export default function SantriDashboard() {
                         <p className="text-sm text-gray-500">Tanggal Lahir</p>
                         <p>15 Januari 2005</p>
                       </div>
-                      <Button className="w-full bg-green-700 hover:bg-green-800">Edit Profil</Button>
+                      <Button className="w-full bg-green-700 hover:bg-green-800">
+                        Edit Profil
+                      </Button>
                     </div>
                   </CardContent>
                 </Card>
@@ -426,8 +553,12 @@ export default function SantriDashboard() {
                             <FileText className="h-5 w-5 text-green-700" />
                           </div>
                           <div>
-                            <p className="font-medium">Menyelesaikan tugas Bahasa Arab</p>
-                            <p className="text-sm text-gray-500">2 hari yang lalu</p>
+                            <p className="font-medium">
+                              Menyelesaikan tugas Bahasa Arab
+                            </p>
+                            <p className="text-sm text-gray-500">
+                              2 hari yang lalu
+                            </p>
                           </div>
                         </div>
                         <div className="flex gap-4 items-start">
@@ -435,8 +566,12 @@ export default function SantriDashboard() {
                             <BookOpen className="h-5 w-5 text-green-700" />
                           </div>
                           <div>
-                            <p className="font-medium">Mengakses materi Fiqih Bab 3</p>
-                            <p className="text-sm text-gray-500">3 hari yang lalu</p>
+                            <p className="font-medium">
+                              Mengakses materi Fiqih Bab 3
+                            </p>
+                            <p className="text-sm text-gray-500">
+                              3 hari yang lalu
+                            </p>
                           </div>
                         </div>
                         <div className="flex gap-4 items-start">
@@ -444,8 +579,12 @@ export default function SantriDashboard() {
                             <MessageSquare className="h-5 w-5 text-green-700" />
                           </div>
                           <div>
-                            <p className="font-medium">Berpartisipasi dalam diskusi Tafsir Al-Quran</p>
-                            <p className="text-sm text-gray-500">1 minggu yang lalu</p>
+                            <p className="font-medium">
+                              Berpartisipasi dalam diskusi Tafsir Al-Quran
+                            </p>
+                            <p className="text-sm text-gray-500">
+                              1 minggu yang lalu
+                            </p>
                           </div>
                         </div>
                       </div>
@@ -458,5 +597,5 @@ export default function SantriDashboard() {
         </main>
       </div>
     </div>
-  )
+  );
 }
