@@ -2,10 +2,9 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { MoreHorizontal, Pencil, Trash2, Users } from "lucide-react"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { MoreHorizontal, Pencil, Trash } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import {
   AlertDialog,
@@ -17,17 +16,15 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
-import { useToast } from "@/hooks/use-toast"
-import { useRouter } from "next/navigation"
+import { Badge } from "@/components/ui/badge"
 
 interface CourseCardUstadzProps {
   id: string
   title: string
   description?: string | null
   coverImage?: string | null
-  isPublished: boolean
-  studentsCount?: number
-  onDelete: (id: string) => Promise<{ error?: string; success?: boolean }>
+  isPublished?: boolean
+  onDelete: (id: string) => Promise<void>
 }
 
 export function CourseCardUstadz({
@@ -35,39 +32,18 @@ export function CourseCardUstadz({
   title,
   description,
   coverImage,
-  isPublished,
-  studentsCount = 0,
+  isPublished = false,
   onDelete,
 }: CourseCardUstadzProps) {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
-  const { toast } = useToast()
-  const router = useRouter()
 
   const handleDelete = async () => {
-    setIsDeleting(true)
     try {
-      const result = await onDelete(id)
-      if (result.error) {
-        toast({
-          title: "Gagal menghapus kursus",
-          description: result.error,
-          variant: "destructive",
-        })
-        return
-      }
-
-      toast({
-        title: "Kursus berhasil dihapus",
-        description: "Kursus telah berhasil dihapus",
-      })
-      router.refresh()
+      setIsDeleting(true)
+      await onDelete(id)
     } catch (error) {
-      toast({
-        title: "Gagal menghapus kursus",
-        description: "Terjadi kesalahan saat menghapus kursus",
-        variant: "destructive",
-      })
+      console.error("Error deleting course:", error)
     } finally {
       setIsDeleting(false)
       setIsDeleteDialogOpen(false)
@@ -81,9 +57,7 @@ export function CourseCardUstadz({
           <div className="flex justify-between items-start">
             <div>
               <CardTitle className="text-lg">{title}</CardTitle>
-              <CardDescription className="flex items-center gap-2">
-                <Users className="h-4 w-4" /> {studentsCount} santri terdaftar
-              </CardDescription>
+              <CardDescription>{description}</CardDescription>
             </div>
             <div className="flex items-center gap-2">
               <Badge variant={isPublished ? "default" : "outline"} className={isPublished ? "bg-green-700" : ""}>
@@ -97,13 +71,19 @@ export function CourseCardUstadz({
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
-                  <Link href={`/dashboard/ustadz/courses/${id}/edit`}>
-                    <DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href={`/dashboard/ustadz/courses/${id}`}>Lihat Detail</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href={`/dashboard/ustadz/courses/${id}/edit`}>
                       <Pencil className="h-4 w-4 mr-2" /> Edit Kursus
-                    </DropdownMenuItem>
-                  </Link>
-                  <DropdownMenuItem onClick={() => setIsDeleteDialogOpen(true)} className="text-red-600">
-                    <Trash2 className="h-4 w-4 mr-2" /> Hapus Kursus
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    className="text-red-600 focus:text-red-600"
+                    onClick={() => setIsDeleteDialogOpen(true)}
+                  >
+                    <Trash className="h-4 w-4 mr-2" /> Hapus Kursus
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -113,14 +93,12 @@ export function CourseCardUstadz({
         <CardContent>
           <p className="text-sm line-clamp-2 mb-4">{description || "Tidak ada deskripsi"}</p>
           <div className="flex gap-2">
-            <Link href={`/dashboard/ustadz/courses/${id}`} className="flex-1">
-              <Button className="w-full bg-green-700 hover:bg-green-800">Kelola</Button>
-            </Link>
-            <Link href={`/dashboard/ustadz/courses/${id}/students`} className="flex-1">
-              <Button variant="outline" className="w-full">
-                Lihat Santri
-              </Button>
-            </Link>
+            <Button asChild className="flex-1 bg-green-700 hover:bg-green-800">
+              <Link href={`/dashboard/ustadz/courses/${id}`}>Kelola Kursus</Link>
+            </Button>
+            <Button asChild variant="outline" className="flex-1">
+              <Link href={`/dashboard/ustadz/courses/${id}/lessons/new`}>Tambah Materi</Link>
+            </Button>
           </div>
         </CardContent>
       </Card>
@@ -128,22 +106,15 @@ export function CourseCardUstadz({
       <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Hapus Kursus</AlertDialogTitle>
+            <AlertDialogTitle>Apakah Anda yakin?</AlertDialogTitle>
             <AlertDialogDescription>
-              Apakah Anda yakin ingin menghapus kursus ini? Tindakan ini tidak dapat dibatalkan dan semua materi dalam
-              kursus ini akan dihapus.
+              Tindakan ini tidak dapat dibatalkan. Ini akan menghapus kursus dan semua materi di dalamnya secara
+              permanen.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel disabled={isDeleting}>Batal</AlertDialogCancel>
-            <AlertDialogAction
-              onClick={(e) => {
-                e.preventDefault()
-                handleDelete()
-              }}
-              disabled={isDeleting}
-              className="bg-red-600 hover:bg-red-700"
-            >
+            <AlertDialogAction onClick={handleDelete} disabled={isDeleting} className="bg-red-600 hover:bg-red-700">
               {isDeleting ? "Menghapus..." : "Hapus"}
             </AlertDialogAction>
           </AlertDialogFooter>

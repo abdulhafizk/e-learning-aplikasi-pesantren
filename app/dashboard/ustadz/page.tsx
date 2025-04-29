@@ -15,7 +15,7 @@ import { getAnnouncements } from "@/app/actions/announcements"
 import { getUserProfile } from "@/app/actions/auth"
 import { Skeleton } from "@/components/ui/skeleton"
 
-// Perbarui import untuk menggunakan deleteCourseAction
+// Import server action untuk menghapus kursus
 import { deleteCourseAction } from "@/app/actions/course-actions"
 
 export const dynamic = "force-dynamic"
